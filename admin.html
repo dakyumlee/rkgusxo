@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>가현♥현태 청첩장 - 관리자</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200;300;400;500;600;700;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            font-family: 'Noto Serif KR', serif;
+            background: linear-gradient(135deg, #fdf7f3 0%, #f4ece6 100%);
+            min-height: 100vh;
+            color: #2c2c2c;
+        }
+        
+        .admin-container {
+            max-width: 450px;
+            margin: 0 auto;
+            padding: 30px 20px;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding-top: 60px;
+        }
+        
+        .admin-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3em;
+            color: #8b4513;
+            margin-bottom: 15px;
+            font-weight: 400;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, #d4af37, #b8860b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .admin-subtitle {
+            font-size: 1.1em;
+            color: #666;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .stat-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 30px 20px;
+            border-radius: 25px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #d4af37, #b8860b);
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+        }
+        
+        .stat-number {
+            font-size: 2.8em;
+            font-weight: 700;
+            color: #8b4513;
+            margin-bottom: 10px;
+            display: block;
+            background: linear-gradient(135deg, #d4af37, #b8860b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .stat-label {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 500;
+        }
+        
+        .overview-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 35px;
+            margin-bottom: 30px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.1);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .overview-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #d4af37, #b8860b);
+        }
+        
+        .overview-title {
+            font-size: 1.4em;
+            color: #8b4513;
+            margin-bottom: 25px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+        
+        .progress-item {
+            margin-bottom: 25px;
+        }
+        
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        
+        .progress-name {
+            font-size: 1em;
+            color: #333;
+            font-weight: 600;
+        }
+        
+        .progress-value {
+            font-size: 0.9em;
+            color: #8b4513;
+            font-weight: 600;
+            background: linear-gradient(135deg, #d4af37, #b8860b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: rgba(212, 175, 55, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #d4af37, #b8860b);
+            border-radius: 10px;
+            transition: width 1s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: progressShine 2s ease-in-out infinite;
+        }
+        
+        @keyframes progressShine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+        
+        .rsvp-list {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 35px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.1);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .rsvp-list::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #d4af37, #b8860b);
+        }
+        
+        .list-title {
+            font-size: 1.4em;
+            color: #8b4513;
+            margin-bottom: 30px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            letter-spacing: 1px;
+        }
+        
+        .refresh-button {
+            background: linear-gradient(135deg, #d4af37, #b8860b);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .refresh-button:hover {
+            transform: translateY(-2px) rotate(90deg);
+            box-shadow: 0 12px 25px rgba(212, 175, 55, 0.4);
+        }
+        
+        .filter-buttons {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            padding: 10px 20px;
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 25px;
+            font-size: 0.9em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #666;
+            font-weight: 600;
+            font-family: inherit;
+        }
+        
+        .filter-btn.active {
+            border-color: #d4af37;
+            background: linear-gradient(135deg, #d4af37, #b8860b);
+            color: white;
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
+        }
+        
+        .filter-btn:hover {
+            transform: translateY(-2px);
+            border-color: #d4af37;
+        }
+        
+        .rsvp-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .rsvp-item:last-child {
+            border-bottom: none;
+        }
+        
+        .rsvp-item:hover {
+            padding-left: 10px;
+            background: rgba(212, 175, 55, 0.05);
+            border-radius: 15px;
+            margin: 0 -10px;
+        }
+        
+        .guest-info {
+            flex: 1;
+        }
+        
+        .guest-name {
+            font-size: 1.2em;
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .guest-count {
+            font-size: 0.9em;
+            color: #666;
+            font-weight: 400;
+        }
+        
+        .status-badge {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .status-yes {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+        
+        .status-no {
+            background: linear-gradient(135deg, #f44336, #d32f2f);
+            color: white;
+            box-shadow: 0 4px 15px rgba(244, 67, 54, 0.3);
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 50px 20px;
+            color: #999;
+        }
+        
+        .empty-icon {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+        
+        .empty-text {
+            font-size: 1.1em;
+            font-weight: 300;
+        }
+        
+        .back-button {
+            position: fixed;
+            top: 40px;
+            left: 40px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            color: #333;
+            padding: 15px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            font-family: inherit;
+        }
+        
+        .back-button:hover {
+            border-color: #d4af37;
+            background: white;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+        
+        .timestamp {
+            text-align: center;
+            color: #999;
+            font-size: 0.9em;
+            margin-top: 40px;
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            font-weight: 300;
+        }
+        
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #fdf9f5 0%, #f5ede3 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            transition: opacity 0.8s ease;
+        }
+        
+        .loading-content {
+            text-align: center;
+        }
+        
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(212, 175, 55, 0.3);
+            border-top: 4px solid #d4af37;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .loading-text {
+            font-size: 1.2em;
+            color: #8b4513;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+        
+        .hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .toast {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0,0,0,0.9);
+            color: white;
+            padding: 20px 30px;
+            border-radius: 25px;
+            z-index: 10000;
+            font-weight: 600;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            animation: toastSlide 0.3s ease;
+        }
+        
+        @keyframes toastSlide {
+            0% {
+                transform: translate(-50%, -50%) scale(0.8);
+                opacity: 0;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .admin-container {
+                max-width: 380px;
+                padding: 20px 15px;
+            }
+            
+            .header {
+                padding-top: 40px;
+                margin-bottom: 40px;
+            }
+            
+            .admin-title {
+                font-size: 2.5em;
+            }
+            
+            .stats-grid {
+                gap: 15px;
+            }
+            
+            .stat-card {
+                padding: 25px 15px;
+            }
+            
+            .back-button {
+                top: 30px;
+                left: 30px;
+                padding: 12px 20px;
+            }
+            
+            .filter-buttons {
+                gap: 8px;
+            }
+            
+            .filter-btn {
+                padding: 8px 16px;
+                font-size: 0.85em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="loading" id="loading">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <div class="loading-text">데이터를 불러오는 중...</div>
+        </div>
+    </div>
+
+    <div class="admin-container">
+        <div class="header">
+            <h1 class="admin-title">RSVP 관리</h1>
+            <p class="admin-subtitle">참석자 현황을 확인하세요</p>
+        </div>
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <span class="stat-number" id="totalResponses">0</span>
+                <div class="stat-label">총 응답</div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number" id="attendingCount">0</span>
+                <div class="stat-label">참석</div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number" id="notAttendingCount">0</span>
+                <div class="stat-label">불참</div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number" id="totalGuests">0</span>
+                <div class="stat-label">총 인원</div>
+            </div>
+        </div>
+        
+        <div class="overview-card">
+            <div class="overview-title">참석률 현황</div>
+            
+            <div class="progress-item">
+                <div class="progress-label">
+                    <span class="progress-name">응답률</span>
+                    <span class="progress-value" id="responseRate">0%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="responseProgress" style="width: 0%"></div>
+                </div>
+            </div>
+            
+            <div class="progress-item">
+                <div class="progress-label">
+                    <span class="progress-name">참석률</span>
+                    <span class="progress-value" id="attendanceRate">0%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="attendanceProgress" style="width: 0%"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="rsvp-list">
+            <div class="list-title">
+                참석자 명단
+                <button class="refresh-button" onclick="refreshData()">↻</button>
+            </div>
+            
+            <div class="filter-buttons">
+                <button class="filter-btn active" onclick="filterGuests('all')">전체</button>
+                <button class="filter-btn" onclick="filterGuests('yes')">참석</button>
+                <button class="filter-btn" onclick="filterGuests('no')">불참</button>
+            </div>
+            
+            <div id="guestList">
+                <div class="empty-state">
+                    <div class="empty-icon">📋</div>
+                    <div class="empty-text">아직 등록된 응답이 없습니다</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="timestamp">
+            마지막 업데이트: <span id="lastUpdate">-</span>
+        </div>
+    </div>
+    
+    <button class="back-button" onclick="goBack()">← 홈으로</button>
+    
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+        import { getFirestore, collection, getDocs, orderBy, query, onSnapshot } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-analytics.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCXHa26Ie8bYISo1PwsOMYx_Ig4Mx7NSzY",
+            authDomain: "htgh-d6388.firebaseapp.com",
+            projectId: "htgh-d6388",
+            storageBucket: "htgh-d6388.firebasestorage.app",
+            messagingSenderId: "258525273549",
+            appId: "1:258525273549:web:a893faf84ecea09e8ab884",
+            measurementId: "G-5GY1CPMWF5"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const analytics = getAnalytics(app);
+
+        window.db = db;
+        window.getDocs = getDocs;
+        window.collection = collection;
+        window.orderBy = orderBy;
+        window.query = query;
+        window.onSnapshot = onSnapshot;
+        
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                document.getElementById('loading').classList.add('hidden');
+                loadRSVPData();
+                
+                const unsubscribe = onSnapshot(collection(db, 'rsvp'), (snapshot) => {
+                    loadRSVPData();
+                });
+            }, 1500);
+        });
+    </script>
+
+    <script>
+        let rsvpData = [];
+        let currentFilter = 'all';
+        
+        async function loadRSVPData() {
+            try {
+                const q = window.query(window.collection(window.db, 'rsvp'), window.orderBy('timestamp', 'desc'));
+                const querySnapshot = await window.getDocs(q);
+                
+                rsvpData = [];
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    rsvpData.push({
+                        id: doc.id,
+                        name: data.name,
+                        attendance: data.attendance,
+                        guestCount: data.guestCount || 1,
+                        timestamp: data.timestamp
+                    });
+                });
+                
+                updateStats();
+                updateGuestList();
+                updateTimestamp();
+                
+            } catch (error) {
+                console.error('데이터 로드 오류:', error);
+                showToast('데이터를 불러오는 중 오류가 발생했습니다.');
+            }
+        }
+        
+        function updateStats() {
+            const totalResponses = rsvpData.length;
+            const attendingCount = rsvpData.filter(item => item.attendance === 'yes').length;
+            const notAttendingCount = rsvpData.filter(item => item.attendance === 'no').length;
+            const totalGuests = rsvpData
+                .filter(item => item.attendance === 'yes')
+                .reduce((sum, item) => sum + (item.guestCount || 1), 0);
+   
+            animateNumber('totalResponses', totalResponses);
+            animateNumber('attendingCount', attendingCount);
+            animateNumber('notAttendingCount', notAttendingCount);
+            animateNumber('totalGuests', totalGuests);
+   
+            const expectedTotal = Math.max(totalResponses, 50);
+            const responseRate = totalResponses > 0 ? Math.round((totalResponses / expectedTotal) * 100) : 0;
+            const attendanceRate = totalResponses > 0 ? Math.round((attendingCount / totalResponses) * 100) : 0;
+            
+            document.getElementById('responseRate').textContent = responseRate + '%';
+            document.getElementById('attendanceRate').textContent = attendanceRate + '%';
+            
+            setTimeout(() => {
+                document.getElementById('responseProgress').style.width = responseRate + '%';
+                document.getElementById('attendanceProgress').style.width = attendanceRate + '%';
+            }, 500);
+        }
+        
+        function animateNumber(elementId, targetNumber) {
+            const element = document.getElementById(elementId);
+            const startNumber = parseInt(element.textContent) || 0;
+            const duration = 1000;
+            const increment = (targetNumber - startNumber) / (duration / 16);
+            let currentNumber = startNumber;
+            
+            const timer = setInterval(() => {
+                currentNumber += increment;
+                if ((increment > 0 && currentNumber >= targetNumber) || 
+                    (increment < 0 && currentNumber <= targetNumber)) {
+                    currentNumber = targetNumber;
+                    clearInterval(timer);
+                }
+                element.textContent = Math.round(currentNumber);
+            }, 16);
+        }
+        
+        function updateGuestList() {
+            const guestList = document.getElementById('guestList');
+            
+            if (rsvpData.length === 0) {
+                guestList.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">📋</div>
+                        <div class="empty-text">아직 등록된 응답이 없습니다</div>
+                    </div>
+                `;
+                return;
+            }
+            
+            const filteredData = rsvpData.filter(item => {
+                if (currentFilter === 'all') return true;
+                return item.attendance === currentFilter;
+            });
+            
+            if (filteredData.length === 0) {
+                guestList.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">🔍</div>
+                        <div class="empty-text">해당 조건에 맞는 응답이 없습니다</div>
+                    </div>
+                `;
+                return;
+            }
+            
+            guestList.innerHTML = filteredData.map(item => `
+                <div class="rsvp-item">
+                    <div class="guest-info">
+                        <div class="guest-name">${item.name}</div>
+                        <div class="guest-count">
+                            ${item.attendance === 'yes' ? `${item.guestCount}명 참석` : '불참'}
+                        </div>
+                    </div>
+                    <div class="status-badge ${item.attendance === 'yes' ? 'status-yes' : 'status-no'}">
+                        ${item.attendance === 'yes' ? '참석' : '불참'}
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        function filterGuests(filter) {
+            currentFilter = filter;
+            
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            updateGuestList();
+        }
+        
+        function refreshData() {
+            const button = document.querySelector('.refresh-button');
+            button.style.transform = 'rotate(360deg)';
+            
+            loadRSVPData();
+            
+            setTimeout(() => {
+                button.style.transform = 'rotate(0deg)';
+                showToast('데이터가 새로고침되었습니다!');
+            }, 800);
+        }
+        
+        function updateTimestamp() {
+            const now = new Date();
+            const timeString = now.toLocaleString('ko-KR', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            document.getElementById('lastUpdate').textContent = timeString;
+        }
+        
+        function goBack() {
+            if (confirm('홈으로 돌아가시겠습니까?')) {
+                window.location.href = 'index.html';
+            }
+        }
+        
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.animation = 'toastSlide 0.3s ease reverse';
+                setTimeout(() => {
+                    if (document.body.contains(toast)) {
+                        document.body.removeChild(toast);
+                    }
+                }, 300);
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
