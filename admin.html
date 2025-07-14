@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="mobile.css">
     <title>가현♥현태 청첩장 - 관리자</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200;300;400;500;600;700;900&display=swap');
@@ -615,7 +616,7 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
         const analytics = getAnalytics(app);
-
+    
         window.db = db;
         window.getDocs = getDocs;
         window.collection = collection;
@@ -633,9 +634,7 @@
                 });
             }, 1500);
         });
-    </script>
-
-    <script>
+        
         let rsvpData = [];
         let currentFilter = 'all';
         
