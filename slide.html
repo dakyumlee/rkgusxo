@@ -76,7 +76,7 @@
             width: 100%;
             text-align: center;
             position: relative;
-            z-index: 10;
+            z-index: 1;
         }
         
         .floating-elements {
@@ -85,7 +85,7 @@
             height: 100%;
             pointer-events: none;
             overflow: hidden;
-            z-index: 1;
+            z-index: 0;
         }
         
         .petal {
@@ -129,7 +129,7 @@
             bottom: 0;
             background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="hearts" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><text x="10" y="15" font-size="12" text-anchor="middle" opacity="0.03" fill="%23d4af37">💕</text></pattern></defs><rect width="100" height="100" fill="url(%23hearts)"/></svg>');
             opacity: 0.1;
-            z-index: 1;
+            z-index: 0;
         }
         
         .ornament-top {
@@ -142,6 +142,7 @@
             background: linear-gradient(45deg, transparent 40%, #d4af37 50%, transparent 60%);
             opacity: 0.3;
             border-radius: 50%;
+            z-index: 0;
         }
         
         .ornament-top::before,
@@ -601,7 +602,6 @@
             left: 100%;
         }
         
-        /* 모달 스타일 */
         .photo-modal {
             position: fixed;
             top: 0;
@@ -612,7 +612,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 10000;
+            z-index: 20000;
             opacity: 0;
             visibility: hidden;
             transition: all 0.3s ease;
@@ -668,6 +668,7 @@
             justify-content: center;
             transition: all 0.3s ease;
             backdrop-filter: blur(10px);
+            z-index: 1;
         }
         
         .modal-close:hover {
@@ -692,6 +693,7 @@
             justify-content: center;
             transition: all 0.3s ease;
             backdrop-filter: blur(10px);
+            z-index: 1;
         }
         
         .modal-nav:hover {
@@ -974,127 +976,6 @@
             }
         }
         
-        .parallax-element {
-            transform: translateZ(0);
-            will-change: transform;
-        }
-        
-        .slide-enter {
-            animation: slideEnter 0.8s cubic-bezier(0.23, 1, 0.320, 1) forwards;
-        }
-        
-        @keyframes slideEnter {
-            from {
-                opacity: 0;
-                transform: translateY(50px) scale(0.95);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-        
-        .card-hover {
-            transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
-        }
-        
-        .card-hover:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
-        }
-        
-        .typewriter {
-            overflow: hidden;
-            border-right: 2px solid #d4af37;
-            white-space: nowrap;
-            animation: 
-                typing 3.5s steps(40, end),
-                blink-caret 0.75s step-end infinite;
-        }
-        
-        @keyframes typing {
-            from { width: 0; }
-            to { width: 100%; }
-        }
-        
-        @keyframes blink-caret {
-            from, to { border-color: transparent; }
-            50% { border-color: #d4af37; }
-        }
-        
-        .floating-hearts {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            overflow: hidden;
-        }
-        
-        .floating-heart-dynamic {
-            position: absolute;
-            font-size: 1.5rem;
-            color: #ff6b94;
-            opacity: 0;
-            animation: floatUp 3s ease-out forwards;
-        }
-        
-        @keyframes floatUp {
-            0% {
-                opacity: 1;
-                transform: translateY(0) rotate(0deg) scale(1);
-            }
-            100% {
-                opacity: 0;
-                transform: translateY(-100px) rotate(360deg) scale(0.5);
-            }
-        }
-        
-        .shake {
-            animation: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97);
-        }
-        
-        @keyframes shake {
-            10%, 90% { transform: translate3d(-1px, 0, 0); }
-            20%, 80% { transform: translate3d(2px, 0, 0); }
-            30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
-            40%, 60% { transform: translate3d(4px, 0, 0); }
-        }
-        
-        .pulse-glow {
-            animation: pulseGlow 2s ease-in-out infinite;
-        }
-        
-        @keyframes pulseGlow {
-            0%, 100% {
-                box-shadow: 0 15px 35px rgba(212,175,55,0.3);
-            }
-            50% {
-                box-shadow: 0 20px 45px rgba(212,175,55,0.6);
-            }
-        }
-        
-        .bounce-in {
-            animation: bounceIn 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-        }
-        
-        @keyframes bounceIn {
-            0% {
-                opacity: 0;
-                transform: scale(0.3) rotate(-10deg);
-            }
-            50% {
-                opacity: 1;
-                transform: scale(1.05) rotate(2deg);
-            }
-            70% {
-                transform: scale(0.9) rotate(-1deg);
-            }
-            100% {
-                opacity: 1;
-                transform: scale(1) rotate(0deg);
-            }
-        }
-        
         .account-label {
             color: #666;
             font-weight: 400;
@@ -1184,6 +1065,223 @@
             opacity: 0.3;
         }
         
+        .message-actions {
+            position: absolute;
+            top: 10px;
+            right: 40px;
+            display: flex;
+            gap: 8px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 10;
+        }
+        
+        .message-item:hover .message-actions {
+            opacity: 1;
+        }
+        
+        .action-btn {
+            background: rgba(212, 175, 55, 0.8);
+            color: white;
+            border: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .action-btn:hover {
+            background: rgba(212, 175, 55, 1);
+            transform: scale(1.1);
+        }
+        
+        .action-btn.delete {
+            background: rgba(255, 107, 148, 0.8);
+        }
+        
+        .action-btn.delete:hover {
+            background: rgba(255, 107, 148, 1);
+        }
+        
+        .edit-form {
+            display: none;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid rgba(212,175,55,0.2);
+        }
+        
+        .edit-form.active {
+            display: block;
+        }
+        
+        .edit-input {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid rgba(212,175,55,0.3);
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-family: inherit;
+            resize: vertical;
+            min-height: 60px;
+            margin-bottom: 8px;
+        }
+        
+        .edit-actions {
+            display: flex;
+            gap: 8px;
+            justify-content: flex-end;
+        }
+        
+        .edit-btn {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .edit-btn.save {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+        }
+        
+        .edit-btn.cancel {
+            background: rgba(150, 150, 150, 0.8);
+            color: white;
+        }
+        
+        .edit-btn:hover {
+            transform: scale(1.05);
+        }
+        
+        .password-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 30000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .password-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .password-modal-content {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 300px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+            transform: scale(0.8);
+            transition: transform 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .password-modal.active .password-modal-content {
+            transform: scale(1);
+        }
+        
+        .password-modal h3 {
+            color: #8b4513;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+        
+        .password-modal .form-input {
+            margin: 15px 0;
+        }
+        
+        .password-modal .modal-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 15px;
+        }
+        
+        .password-modal .modal-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .password-modal .confirm-btn {
+            background: linear-gradient(135deg, #d4af37, #b8860b);
+            color: white;
+        }
+        
+        .password-modal .cancel-btn {
+            background: rgba(150, 150, 150, 0.8);
+            color: white;
+        }
+        
+        .password-modal .modal-btn:hover {
+            transform: scale(1.05);
+        }
+        
+        .admin-controls {
+            position: fixed;
+            top: 70px;
+            right: 25px;
+            background: rgba(255, 255, 255, 0.95);
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            border-radius: 20px;
+            padding: 12px;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            z-index: 1500;
+            display: none;
+        }
+        
+        .admin-controls.active {
+            display: block;
+        }
+        
+        .admin-btn {
+            background: linear-gradient(135deg, #ff6b94, #ff8fa3);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 5px;
+            display: block;
+            width: 100%;
+            min-height: 35px;
+        }
+        
+        .admin-btn:last-child {
+            margin-bottom: 0;
+        }
+        
+        .admin-btn:hover {
+            transform: scale(1.05);
+        }
+        
         .message-item:last-child {
             margin-bottom: 0;
         }
@@ -1212,6 +1310,8 @@
             font-size: 0.9rem;
             white-space: pre-wrap;
             word-wrap: break-word;
+            word-break: break-word;
+            overflow-wrap: break-word;
         }
         
         .guestbook-messages::-webkit-scrollbar {
@@ -1309,7 +1409,7 @@
             width: 100%;
             height: 4px;
             background: rgba(255,255,255,0.3);
-            z-index: 9999;
+            z-index: 10000;
             overflow: hidden;
         }
         
@@ -1328,7 +1428,7 @@
             transform: translateX(-50%);
             display: flex;
             gap: 12px;
-            z-index: 1000;
+            z-index: 1200;
             background: rgba(255,255,255,0.9);
             padding: 15px 25px;
             border-radius: 30px;
@@ -1369,7 +1469,7 @@
             cursor: pointer;
             font-weight: 600;
             backdrop-filter: blur(20px);
-            z-index: 1000;
+            z-index: 1300;
             transition: all 0.3s ease;
             box-shadow: 0 8px 25px rgba(0,0,0,0.1);
             font-size: 0.9rem;
@@ -1389,7 +1489,7 @@
             border-radius: 25px;
             padding: 12px 18px;
             backdrop-filter: blur(20px);
-            z-index: 1000;
+            z-index: 1400;
             box-shadow: 0 8px 25px rgba(0,0,0,0.1);
             transition: all 0.3s ease;
             display: flex;
@@ -1478,51 +1578,123 @@
             opacity: 0.4;
         }
         
-        .loading {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #fdf9f5 0%, #f5ede3 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10000;
-            transition: opacity 0.5s ease;
+        .parallax-element {
+            transform: translateZ(0);
+            will-change: transform;
         }
         
-        .loading-hearts {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
+        .slide-enter {
+            animation: slideEnter 0.8s cubic-bezier(0.23, 1, 0.320, 1) forwards;
         }
         
-        .loading-heart {
-            font-size: 2rem;
+        @keyframes slideEnter {
+            from {
+                opacity: 0;
+                transform: translateY(50px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        
+        .card-hover {
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+        }
+        
+        .typewriter {
+            overflow: hidden;
+            border-right: 2px solid #d4af37;
+            white-space: nowrap;
+            animation: 
+                typing 3.5s steps(40, end),
+                blink-caret 0.75s step-end infinite;
+        }
+        
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        
+        @keyframes blink-caret {
+            from, to { border-color: transparent; }
+            50% { border-color: #d4af37; }
+        }
+        
+        .floating-heart-dynamic {
+            position: absolute;
+            font-size: 1.5rem;
             color: #ff6b94;
-            animation: heartPulse 1.5s ease-in-out infinite;
-        }
-        
-        .loading-heart:nth-child(2) { animation-delay: 0.3s; }
-        .loading-heart:nth-child(3) { animation-delay: 0.6s; }
-        
-        @keyframes heartPulse {
-            0%, 100% { transform: scale(1); opacity: 0.7; }
-            50% { transform: scale(1.3); opacity: 1; }
-        }
-        
-        .loading-text {
-            font-size: 1.2rem;
-            color: #8b4513;
-            font-weight: 600;
-            letter-spacing: 2px;
-            text-align: center;
-        }
-        
-        .hidden {
             opacity: 0;
-            pointer-events: none;
+            animation: floatUp 3s ease-out forwards;
+            z-index: 5;
+        }
+        
+        @keyframes floatUp {
+            0% {
+                opacity: 1;
+                transform: translateY(0) rotate(0deg) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-100px) rotate(360deg) scale(0.5);
+            }
+        }
+        
+        .shake {
+            animation: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+        }
+        
+        @keyframes shake {
+            10%, 90% { transform: translate3d(-1px, 0, 0); }
+            20%, 80% { transform: translate3d(2px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+            40%, 60% { transform: translate3d(4px, 0, 0); }
+        }
+        
+        .pulse-glow {
+            animation: pulseGlow 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulseGlow {
+            0%, 100% {
+                box-shadow: 0 15px 35px rgba(212,175,55,0.3);
+            }
+            50% {
+                box-shadow: 0 20px 45px rgba(212,175,55,0.6);
+            }
+        }
+        
+        .bounce-in {
+            animation: bounceIn 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        @keyframes bounceIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.3) rotate(-10deg);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.05) rotate(2deg);
+            }
+            70% {
+                transform: scale(0.9) rotate(-1deg);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
+        }
+        
+        @keyframes toastSlide {
+            0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0; }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
         }
         
         @media (max-width: 390px) {
@@ -1618,15 +1790,6 @@
 <body>
     <div class="progress-bar">
         <div class="progress-fill" id="progressFill"></div>
-    </div>
-
-    <div class="loading" id="loading">
-        <div class="loading-hearts">
-            <div class="loading-heart">💕</div>
-            <div class="loading-heart">💕</div>
-            <div class="loading-heart">💕</div>
-        </div>
-        <div class="loading-text">Wedding Invitation</div>
     </div>
 
     <div class="floating-elements">
@@ -1760,16 +1923,6 @@
                 <p style="color: #888; font-size: 0.85rem; margin-top: 20px; font-weight: 300;">
                     사진을 터치하면 확대됩니다
                 </p>
-            </div>
-        </div>
-
-        <!-- 사진 모달 -->
-        <div class="photo-modal" id="photoModal">
-            <div class="modal-content">
-                <img class="modal-image" id="modalImage" src="" alt="">
-                <button class="modal-close" onclick="closeModal()">×</button>
-                <button class="modal-nav modal-prev" onclick="prevPhoto()">‹</button>
-                <button class="modal-nav modal-next" onclick="nextPhoto()">›</button>
             </div>
         </div>
 
@@ -1957,6 +2110,14 @@
                             <textarea id="guestbookMessage" class="form-input" rows="3" placeholder="축하 메시지를 남겨주세요" style="resize: vertical; min-height: 80px;"></textarea>
                         </div>
                         
+                        <div class="form-group">
+                            <label class="form-label" for="guestbookPassword">비밀번호 (선택사항)</label>
+                            <input type="password" id="guestbookPassword" class="form-input" placeholder="수정/삭제용 비밀번호 (4자리 이상)">
+                            <div style="font-size: 0.8rem; color: #999; margin-top: 5px;">
+                                💡 비밀번호를 설정하면 나중에 메시지를 수정하거나 삭제할 수 있어요
+                            </div>
+                        </div>
+                        
                         <button class="submit-btn" onclick="submitGuestbook()">메시지 남기기</button>
                     </div>
                     
@@ -1966,6 +2127,26 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="photo-modal" id="photoModal">
+        <div class="modal-content">
+            <img class="modal-image" id="modalImage" src="" alt="">
+            <button class="modal-close" onclick="closeModal()">×</button>
+            <button class="modal-nav modal-prev" onclick="prevPhoto()">‹</button>
+            <button class="modal-nav modal-next" onclick="nextPhoto()">›</button>
+        </div>
+    </div>
+
+    <div class="password-modal" id="passwordModal">
+        <div class="password-modal-content">
+            <h3 id="passwordModalTitle">비밀번호 입력</h3>
+            <input type="password" id="passwordInput" class="form-input" placeholder="비밀번호를 입력하세요">
+            <div class="modal-actions">
+                <button class="modal-btn confirm-btn" onclick="confirmPassword()">확인</button>
+                <button class="modal-btn cancel-btn" onclick="closePasswordModal()">취소</button>
             </div>
         </div>
     </div>
@@ -1982,6 +2163,11 @@
     </div>
 
     <button class="back-button" onclick="goBack()">← 홈으로</button>
+
+    <div class="admin-controls" id="adminControls">
+        <button class="admin-btn" onclick="toggleAdminMode()">관리자 모드 ON/OFF</button>
+        <button class="admin-btn" onclick="clearAllMessages()">모든 메시지 삭제</button>
+    </div>
 
     <div class="music-player">
         <div class="music-controls">
@@ -2007,7 +2193,7 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
-        import { getFirestore, collection, addDoc, getDocs, orderBy, query, onSnapshot } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, getDocs, orderBy, query, onSnapshot, doc, updateDoc, deleteDoc, getDoc } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-analytics.js";
 
         const firebaseConfig = {
@@ -2031,11 +2217,10 @@
         let touchEndX = 0;
         let parallaxElements = [];
         
-        // 갤러리 관련 변수
         const photos = ['1.jpeg', '2.jpeg', '3.jpeg', '4.jpeg'];
         let currentMainPhoto = 0;
         let currentModalPhoto = 0;
-
+        
         function initParallax() {
             parallaxElements = document.querySelectorAll('.parallax-element');
         }
@@ -2159,13 +2344,11 @@
             }
         }
 
-        // 갤러리 기능
         function changeMainPhoto(index) {
             currentMainPhoto = index;
             const mainPhoto = document.querySelector('.main-photo img');
             mainPhoto.src = photos[index];
             
-            // 썸네일 활성화 상태 업데이트
             document.querySelectorAll('.photo-item').forEach((item, i) => {
                 item.classList.toggle('active', i === index);
             });
@@ -2180,8 +2363,7 @@
             
             modalImage.src = photos[photoIndex];
             modal.classList.add('active');
-            
-            // 모달이 열릴 때 body 스크롤은 방지하되 모달 내 스크롤은 허용
+      
             document.body.style.position = 'fixed';
             document.body.style.top = '0';
             document.body.style.width = '100%';
@@ -2191,7 +2373,6 @@
             const modal = document.getElementById('photoModal');
             modal.classList.remove('active');
             
-            // 스크롤 복원
             document.body.style.position = '';
             document.body.style.top = '';
             document.body.style.width = '';
@@ -2247,7 +2428,6 @@
         }
 
         document.addEventListener('keydown', (e) => {
-            // 모달이 열려있을 때는 모달 네비게이션
             const modal = document.getElementById('photoModal');
             if (modal.classList.contains('active')) {
                 switch(e.key) {
@@ -2267,7 +2447,6 @@
                 return;
             }
             
-            // 일반 슬라이드 네비게이션
             switch(e.key) {
                 case 'ArrowLeft':
                 case 'ArrowUp':
@@ -2294,7 +2473,6 @@
             }
         });
 
-        // 모달 외부 클릭 시 닫기
         document.getElementById('photoModal').addEventListener('click', (e) => {
             if (e.target.classList.contains('photo-modal')) {
                 closeModal();
@@ -2451,7 +2629,7 @@
                 color: white;
                 padding: 15px 25px;
                 border-radius: 25px;
-                z-index: 10000;
+                z-index: 40000;
                 font-weight: 600;
                 backdrop-filter: blur(20px);
                 font-size: 0.95rem;
@@ -2508,30 +2686,55 @@
         async function submitGuestbook() {
             const name = document.getElementById('guestbookName').value.trim();
             const message = document.getElementById('guestbookMessage').value.trim();
+            const password = document.getElementById('guestbookPassword').value.trim();
 
             if (!name || !message) {
                 showToast('성함과 메시지를 모두 입력해주세요! 📝');
                 return;
             }
 
+            if (!db) {
+                showToast('Firebase 연결에 문제가 있습니다. 페이지를 새로고침 해주세요! 🔄');
+                return;
+            }
+
             try {
-                await addDoc(collection(db, 'guestbook'), {
+                const guestbookData = {
                     name: name,
                     message: message,
                     timestamp: new Date(),
                     submittedAt: new Date().toISOString()
-                });
+                };
+                
+                if (password && password.length >= 4) {
+                    guestbookData.hasPassword = true;
+                    guestbookData.password = await hashPassword(password);
+                } else {
+                    guestbookData.hasPassword = false;
+                }
+
+                console.log('방명록 데이터 저장 시도:', guestbookData);
+                await addDoc(collection(db, 'guestbook'), guestbookData);
 
                 document.getElementById('guestbookName').value = '';
                 document.getElementById('guestbookMessage').value = '';
+                document.getElementById('guestbookPassword').value = '';
 
                 showToast('소중한 메시지가 등록되었습니다! 감사합니다 💕');
                 loadGuestbookMessages();
 
             } catch (error) {
                 console.error('방명록 저장 오류:', error);
-                showToast('메시지 등록 중 오류가 발생했습니다. 다시 시도해주세요 😅');
+                showToast('메시지 등록 중 오류가 발생했습니다. Firebase 설정을 확인해주세요! 😅');
             }
+        }
+        
+        async function hashPassword(password) {
+            const encoder = new TextEncoder();
+            const data = encoder.encode(password + 'wedding_salt_2025');
+            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
         }
 
         async function loadGuestbookMessages() {
@@ -2564,13 +2767,36 @@
                         minute: '2-digit'
                     });
 
+                    const escapedMessage = data.message
+                        .replace(/&/g, '&amp;')
+                        .replace(/</g, '&lt;')
+                        .replace(/>/g, '&gt;')
+                        .replace(/"/g, '&quot;')
+                        .replace(/'/g, '&#39;');
+
+                    const hasActions = data.hasPassword || isAdminMode;
+                    const actionButtons = hasActions ? `
+                        <div class="message-actions">
+                            ${data.hasPassword ? `<button class="action-btn edit" onclick="editMessage('${doc.id}', \`${data.message.replace(/`/g, '\\`')}\`, true)" title="수정">✏️</button>` : ''}
+                            <button class="action-btn delete" onclick="deleteMessage('${doc.id}', ${data.hasPassword})" title="삭제">🗑️</button>
+                        </div>
+                    ` : '';
+
                     messagesHTML += `
-                        <div class="message-item">
+                        <div class="message-item" data-id="${doc.id}">
+                            ${actionButtons}
                             <div class="message-header">
                                 <span class="message-name">${data.name}</span>
                                 <span class="message-date">${formattedDate}</span>
                             </div>
-                            <div class="message-text">${data.message}</div>
+                            <div class="message-text">${escapedMessage}</div>
+                            <div class="edit-form" id="edit-${doc.id}">
+                                <textarea class="edit-input" placeholder="수정할 메시지를 입력하세요">${data.message}</textarea>
+                                <div class="edit-actions">
+                                    <button class="edit-btn save" onclick="saveEdit('${doc.id}')">저장</button>
+                                    <button class="edit-btn cancel" onclick="cancelEdit('${doc.id}')">취소</button>
+                                </div>
+                            </div>
                         </div>
                     `;
                 });
@@ -2581,11 +2807,221 @@
                 console.error('방명록 로드 오류:', error);
                 document.getElementById('guestbookMessages').innerHTML = `
                     <div style="text-align: center; color: #999; padding: 20px; font-size: 0.95rem;">
-                        메시지를 불러오는 중 오류가 발생했습니다.
+                        메시지를 불러오는 중 오류가 발생했습니다.<br>
+                        Firebase 설정을 확인해주세요.
                     </div>
                 `;
             }
         }
+
+        function editMessage(messageId, currentMessage, hasPassword) {
+            if (hasPassword) {
+                currentAction = 'edit';
+                currentMessageId = messageId;
+                currentMessageElement = document.querySelector(`[data-id="${messageId}"]`);
+                showPasswordModal('메시지를 수정하려면 비밀번호를 입력하세요');
+            }
+        }
+
+        function deleteMessage(messageId, hasPassword) {
+            if (hasPassword) {
+                currentAction = 'delete';
+                currentMessageId = messageId;
+                currentMessageElement = document.querySelector(`[data-id="${messageId}"]`);
+                showPasswordModal('메시지를 삭제하려면 비밀번호를 입력하세요');
+            } else if (isAdminMode) {
+                currentAction = 'delete';
+                currentMessageId = messageId;
+                currentMessageElement = document.querySelector(`[data-id="${messageId}"]`);
+                showPasswordModal('관리자 권한으로 삭제하려면 마스터키를 입력하세요');
+            } else {
+                showToast('삭제 권한이 없습니다! 🔒');
+            }
+        }
+
+        function showPasswordModal(title) {
+            document.getElementById('passwordModalTitle').textContent = title;
+            document.getElementById('passwordInput').value = '';
+            document.getElementById('passwordModal').classList.add('active');
+        }
+
+        function closePasswordModal() {
+            document.getElementById('passwordModal').classList.remove('active');
+            currentAction = null;
+            currentMessageId = null;
+            currentMessageElement = null;
+        }
+
+        async function confirmPassword() {
+            const password = document.getElementById('passwordInput').value.trim();
+            
+            if (!password) {
+                showToast('비밀번호를 입력해주세요! 🔒');
+                return;
+            }
+
+            try {
+                if (password === MASTER_KEY) {
+                    await executeAction();
+                    closePasswordModal();
+                    return;
+                }
+
+                const docRef = doc(db, 'guestbook', currentMessageId);
+                const docSnap = await getDoc(docRef);
+                
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+                    if (data.hasPassword) {
+                        const hashedInput = await hashPassword(password);
+                        if (hashedInput === data.password) {
+                            await executeAction();
+                            closePasswordModal();
+                        } else {
+                            showToast('비밀번호가 틀렸습니다! 😅');
+                        }
+                    } else {
+                        showToast('이 메시지는 비밀번호가 설정되지 않았습니다! 🔒');
+                    }
+                } else {
+                    showToast('메시지를 찾을 수 없습니다! 😅');
+                }
+                
+            } catch (error) {
+                console.error('비밀번호 확인 오류:', error);
+                showToast('오류가 발생했습니다. 다시 시도해주세요! 😅');
+            }
+        }
+
+        async function executeAction() {
+            if (currentAction === 'edit') {
+                showEditForm();
+            } else if (currentAction === 'delete') {
+                await performDelete();
+            }
+        }
+
+        function showEditForm() {
+            const editForm = document.getElementById(`edit-${currentMessageId}`);
+            const messageText = currentMessageElement.querySelector('.message-text');
+            
+            editForm.classList.add('active');
+            messageText.style.display = 'none';
+            
+            editForm.querySelector('.edit-input').focus();
+        }
+
+        function cancelEdit(messageId) {
+            const editForm = document.getElementById(`edit-${messageId}`);
+            const messageItem = document.querySelector(`[data-id="${messageId}"]`);
+            const messageText = messageItem.querySelector('.message-text');
+            
+            editForm.classList.remove('active');
+            messageText.style.display = 'block';
+        }
+
+        async function saveEdit(messageId) {
+            const editForm = document.getElementById(`edit-${messageId}`);
+            const newMessage = editForm.querySelector('.edit-input').value.trim();
+            
+            if (!newMessage) {
+                showToast('메시지를 입력해주세요! 📝');
+                return;
+            }
+
+            try {
+                const docRef = doc(db, 'guestbook', messageId);
+                await updateDoc(docRef, {
+                    message: newMessage,
+                    updatedAt: new Date().toISOString()
+                });
+                
+                showToast('메시지가 수정되었습니다! ✨');
+                loadGuestbookMessages();
+                
+            } catch (error) {
+                console.error('메시지 수정 오류:', error);
+                showToast('수정 중 오류가 발생했습니다. 다시 시도해주세요! 😅');
+            }
+        }
+
+        async function performDelete() {
+            try {
+                const docRef = doc(db, 'guestbook', currentMessageId);
+                await deleteDoc(docRef);
+                
+                showToast('메시지가 삭제되었습니다! 🗑️');
+                loadGuestbookMessages();
+                
+            } catch (error) {
+                console.error('메시지 삭제 오류:', error);
+                showToast('삭제 중 오류가 발생했습니다. 다시 시도해주세요! 😅');
+            }
+        }
+
+        function toggleAdminMode() {
+            if (!isAdminMode) {
+                const password = prompt('관리자 비밀번호를 입력하세요:');
+                if (password === MASTER_KEY) {
+                    isAdminMode = true;
+                    showToast('관리자 모드가 활성화되었습니다! 👑');
+                    loadGuestbookMessages();
+                } else {
+                    showToast('잘못된 비밀번호입니다! ❌');
+                }
+            } else {
+                isAdminMode = false;
+                showToast('관리자 모드가 비활성화되었습니다! 👋');
+                loadGuestbookMessages();
+            }
+        }
+
+        async function clearAllMessages() {
+            if (!isAdminMode) {
+                showToast('관리자 모드가 활성화되지 않았습니다! 🔒');
+                return;
+            }
+            
+            if (!confirm('정말로 모든 방명록 메시지를 삭제하시겠습니까?\n이 작업은 되돌릴 수 없습니다!')) {
+                return;
+            }
+            
+            const finalConfirm = prompt('삭제를 확인하려면 "삭제확인"을 입력하세요:');
+            if (finalConfirm !== '삭제확인') {
+                showToast('삭제가 취소되었습니다! ✋');
+                return;
+            }
+
+            try {
+                const q = query(collection(db, 'guestbook'));
+                const querySnapshot = await getDocs(q);
+                
+                const deletePromises = [];
+                querySnapshot.forEach((document) => {
+                    deletePromises.push(deleteDoc(doc(db, 'guestbook', document.id)));
+                });
+                
+                await Promise.all(deletePromises);
+                showToast(`${deletePromises.length}개의 메시지가 모두 삭제되었습니다! 🗑️`);
+                loadGuestbookMessages();
+                
+            } catch (error) {
+                console.error('전체 삭제 오류:', error);
+                showToast('삭제 중 오류가 발생했습니다! ❌');
+            }
+        }
+
+        document.getElementById('passwordModal').addEventListener('click', (e) => {
+            if (e.target.classList.contains('password-modal')) {
+                closePasswordModal();
+            }
+        });
+
+        document.getElementById('passwordInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                confirmPassword();
+            }
+        });
 
         function goBack() {
             if (confirm('홈으로 돌아가시겠습니까?')) {
@@ -2593,42 +3029,57 @@
             }
         }
 
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes toastSlide {
-                0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0; }
-                100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
-            }
-        `;
-        document.head.appendChild(style);
-
         window.addEventListener('load', function() {
+            updateSlidePosition();
+            updateProgressBar();
+            initParallax();
+            
             setTimeout(() => {
-                document.getElementById('loading').classList.add('hidden');
-                updateSlidePosition();
-                updateProgressBar();
-                initParallax();
-                loadGuestbookMessages();
-                
-                document.querySelectorAll('.info-card, .money-card, .profile-card').forEach(card => {
-                    card.classList.add('card-hover');
-                });
-                
-                const mainTitle = document.querySelector('.main-title');
-                if (mainTitle) {
-                    mainTitle.classList.add('typewriter');
+                if (db) {
+                    console.log('Firebase 연결 성공');
+                    loadGuestbookMessages();
+                } else {
+                    console.error('Firebase 연결 실패');
+                    showToast('Firebase 연결에 실패했습니다. 페이지를 새로고침 해주세요! 🔄');
                 }
-                
-                onSnapshot(collection(db, 'guestbook'), () => {
+            }, 1000);
+            
+            document.querySelectorAll('.info-card, .money-card, .profile-card').forEach(card => {
+                card.classList.add('card-hover');
+            });
+            
+            const mainTitle = document.querySelector('.main-title');
+            if (mainTitle) {
+                mainTitle.classList.add('typewriter');
+            }
+            
+            try {
+                onSnapshot(collection(db, 'guestbook'), (snapshot) => {
+                    console.log('방명록 실시간 업데이트:', snapshot.size, '개 메시지');
                     loadGuestbookMessages();
                 });
-                
-                document.querySelectorAll('.petal, .ornament-top').forEach(el => {
-                    el.classList.add('parallax-element');
-                });
-                
-                initParallax();
-            }, 1500);
+            } catch (error) {
+                console.error('실시간 업데이트 설정 실패:', error);
+            }
+            
+            let clickCount = 0;
+            document.addEventListener('click', function() {
+                clickCount++;
+                setTimeout(function() {
+                    if (clickCount === 5) {
+                        const adminControls = document.getElementById('adminControls');
+                        adminControls.classList.toggle('active');
+                        showToast(adminControls.classList.contains('active') ? '관리자 패널이 열렸습니다! 🔧' : '관리자 패널이 닫혔습니다! 👋');
+                    }
+                    clickCount = 0;
+                }, 1000);
+            });
+            
+            document.querySelectorAll('.petal, .ornament-top').forEach(el => {
+                el.classList.add('parallax-element');
+            });
+            
+            initParallax();
         });
 
         document.addEventListener('click', function(e) {
@@ -2662,28 +3113,6 @@
             lastTap = currentTime;
         });
 
-        let autoSlideInterval;
-        function startAutoSlide() {
-            autoSlideInterval = setInterval(() => {
-                if (currentSlide < totalSlides - 1) {
-                    nextSlide();
-                } else {
-                    goToSlide(0);
-                }
-            }, 10000);
-        }
-
-        function stopAutoSlide() {
-            if (autoSlideInterval) {
-                clearInterval(autoSlideInterval);
-                autoSlideInterval = null;
-            }
-        }
-
-        document.addEventListener('touchstart', stopAutoSlide);
-        document.addEventListener('keydown', stopAutoSlide);
-
-        window.goToSlide = goToSlide;
         window.submitRSVP = submitRSVP;
         window.submitGuestbook = submitGuestbook;
         window.copyAccount = copyAccount;
@@ -2698,6 +3127,16 @@
         window.closeModal = closeModal;
         window.nextPhoto = nextPhoto;
         window.prevPhoto = prevPhoto;
+        window.goToSlide = goToSlide;
+        window.editMessage = editMessage;
+        window.deleteMessage = deleteMessage;
+        window.toggleAdminMode = toggleAdminMode;
+        window.clearAllMessages = clearAllMessages;
+        window.showPasswordModal = showPasswordModal;
+        window.closePasswordModal = closePasswordModal;
+        window.confirmPassword = confirmPassword;
+        window.cancelEdit = cancelEdit;
+        window.saveEdit = saveEdit;
     </script>
 </body>
 </html>
