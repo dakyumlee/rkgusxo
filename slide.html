@@ -68,8 +68,6 @@
         .slide:nth-child(5) { z-index: 6; }
         .slide:nth-child(6) { z-index: 5; }
         .slide:nth-child(7) { z-index: 4; }
-        .slide:nth-child(8) { z-index: 3; }
-        .slide:nth-child(9) { z-index: 2; }
         
         .slide-content {
             max-width: 340px;
@@ -786,7 +784,7 @@
         
         .info-grid {
             display: grid;
-            gap: 18px;
+            gap: 20px;
             width: 100%;
         }
         
@@ -1008,6 +1006,76 @@
             background: linear-gradient(135deg, #f7f3ef 0%, #ede1d5 100%);
         }
         
+        .rsvp-form {
+            background: rgba(255,255,255,0.95);
+            border-radius: 25px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            border: 2px solid rgba(212,175,55,0.2);
+            width: 100%;
+            position: relative;
+        }
+        
+        .rsvp-form::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #d4af37, #ff6b94, #b8860b);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 10px;
+            color: #333;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        
+        .form-input,
+        .form-select {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid rgba(212,175,55,0.3);
+            border-radius: 15px;
+            font-size: 0.95rem;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            background: rgba(255,255,255,0.8);
+            min-height: 50px;
+        }
+        
+        .form-input:focus,
+        .form-select:focus {
+            outline: none;
+            border-color: #d4af37;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(212,175,55,0.1);
+        }
+        
+        .submit-btn {
+            background: linear-gradient(135deg, #d4af37, #b8860b);
+            color: white;
+            padding: 18px 40px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            font-family: inherit;
+            box-shadow: 0 12px 25px rgba(212,175,55,0.3);
+            min-height: 55px;
+        }
+        
         .slide-guestbook {
             background: linear-gradient(135deg, #f6f2ee 0%, #eae0d6 100%);
         }
@@ -1130,6 +1198,7 @@
             resize: vertical;
             min-height: 60px;
             margin-bottom: 8px;
+            white-space: pre-wrap;
         }
         
         .edit-actions {
@@ -1310,8 +1379,11 @@
             font-size: 0.9rem;
             white-space: pre-wrap;
             word-wrap: break-word;
-            word-break: break-word;
+            word-break: normal;
             overflow-wrap: break-word;
+            font-family: inherit;
+            text-align: left;
+            padding: 5px 0;
         }
         
         .guestbook-messages::-webkit-scrollbar {
@@ -1328,78 +1400,22 @@
             border-radius: 3px;
         }
         
-        .rsvp-form {
-            background: rgba(255,255,255,0.95);
-            border-radius: 25px;
-            padding: 30px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-            border: 2px solid rgba(212,175,55,0.2);
-            width: 100%;
-            position: relative;
-        }
-        
-        .rsvp-form::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, #d4af37, #ff6b94, #b8860b);
-        }
-        
-        .form-group {
-            margin-bottom: 20px;
-            text-align: left;
-        }
-        
-        .form-label {
-            display: block;
-            margin-bottom: 10px;
-            color: #333;
-            font-weight: 600;
+        .loading-indicator {
+            text-align: center;
+            color: #999;
+            padding: 20px;
             font-size: 0.95rem;
         }
         
-        .form-input,
-        .form-select {
-            width: 100%;
-            padding: 15px 20px;
-            border: 2px solid rgba(212,175,55,0.3);
+        .error-message {
+            text-align: center;
+            color: #ff6b94;
+            padding: 20px;
+            font-size: 0.95rem;
+            background: rgba(255,107,148,0.1);
             border-radius: 15px;
-            font-size: 0.95rem;
-            font-family: inherit;
-            transition: all 0.3s ease;
-            background: rgba(255,255,255,0.8);
-            min-height: 50px;
-        }
-        
-        .form-input:focus,
-        .form-select:focus {
-            outline: none;
-            border-color: #d4af37;
-            background: white;
-            box-shadow: 0 0 0 3px rgba(212,175,55,0.1);
-        }
-        
-        .submit-btn {
-            background: linear-gradient(135deg, #d4af37, #b8860b);
-            color: white;
-            padding: 18px 40px;
-            border: none;
-            border-radius: 30px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 100%;
-            font-family: inherit;
-            box-shadow: 0 12px 25px rgba(212,175,55,0.3);
-            min-height: 55px;
-        }
-        
-        .submit-btn:active {
-            transform: scale(0.98);
+            border: 1px solid rgba(255,107,148,0.2);
+            margin: 10px 0;
         }
         
         .progress-bar {
@@ -1785,7 +1801,7 @@
                 font-size: 2.8rem;
             }
         }
-    </style>
+</style>
 </head>
 <body>
     <div class="progress-bar">
@@ -2093,7 +2109,7 @@
                 </div>
             </div>
         </div>
-
+        
         <div class="slide slide-guestbook" data-slide="7">
             <div class="slide-content">
                 <h2 class="section-title">방명록</h2>
@@ -2107,7 +2123,7 @@
                         
                         <div class="form-group">
                             <label class="form-label" for="guestbookMessage">축하 메시지</label>
-                            <textarea id="guestbookMessage" class="form-input" rows="3" placeholder="축하 메시지를 남겨주세요" style="resize: vertical; min-height: 80px;"></textarea>
+                            <textarea id="guestbookMessage" class="form-input" rows="3" placeholder="축하 메시지를 남겨주세요" style="resize: vertical; min-height: 80px; white-space: pre-wrap; font-family: inherit;"></textarea>
                         </div>
                         
                         <div class="form-group">
@@ -2122,8 +2138,8 @@
                     </div>
                     
                     <div class="guestbook-messages" id="guestbookMessages">
-                        <div style="text-align: center; color: #999; padding: 20px; font-size: 0.95rem;">
-                            첫 번째 메시지를 남겨주세요! 💕
+                        <div class="loading-indicator">
+                            <div>방명록을 불러오는 중입니다... 💕</div>
                         </div>
                     </div>
                 </div>
@@ -2186,8 +2202,8 @@
                 <div class="audio-bar"></div>
             </div>
         </div>
-        <audio id="audioPlayer" preload="metadata" loop>
-            <source src="data:audio/mpeg;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4Ljc2LjEwMAAAAAAAAAAAAAAA//tQxAADB8AhSmxhIIEVCSiJrDCQBTcu3UrAIwUdkRgQbFAZC1CQEwTJ9mjRvBA8RFKMCL//1FQIDsE+W8BoAQAAAAAAAAA=" type="audio/mpeg">
+        <audio id="audioPlayer" preload="none">
+            <source src="https://cdnjs.cloudflare.com/ajax/libs/tone.js/14.8.49/Tone.min.js" type="audio/mpeg">
         </audio>
     </div>
 
@@ -2206,9 +2222,19 @@
             measurementId: "G-5GY1CPMWF5"
         };
 
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-        const analytics = getAnalytics(app);
+        let app;
+        let db;
+        let analytics;
+        
+        try {
+            app = initializeApp(firebaseConfig);
+            db = getFirestore(app);
+            analytics = getAnalytics(app);
+            console.log('Firebase 초기화 성공');
+        } catch (error) {
+            console.error('Firebase 초기화 실패:', error);
+            db = null;
+        }
 
         let currentSlide = 0;
         const totalSlides = 8;
@@ -2216,10 +2242,49 @@
         let touchStartX = 0;
         let touchEndX = 0;
         let parallaxElements = [];
+        let isAdminMode = false;
+        let currentAction = null;
+        let currentMessageId = null;
+        let currentMessageElement = null;
+        const MASTER_KEY = '가현태';
         
         const photos = ['1.jpeg', '2.jpeg', '3.jpeg', '4.jpeg'];
         let currentMainPhoto = 0;
         let currentModalPhoto = 0;
+
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        let musicBuffer = null;
+        let audioSource = null;
+
+        async function createSyntheticMusic() {
+            const sampleRate = audioContext.sampleRate;
+            const duration = 30;
+            const length = sampleRate * duration;
+            const buffer = audioContext.createBuffer(2, length, sampleRate);
+            
+            for (let channel = 0; channel < 2; channel++) {
+                const channelData = buffer.getChannelData(channel);
+                for (let i = 0; i < length; i++) {
+                    const time = i / sampleRate;
+                    let signal = 0;
+                    signal += Math.sin(2 * Math.PI * 261.63 * time) * 0.3 * Math.exp(-time * 0.5);
+                    signal += Math.sin(2 * Math.PI * 329.63 * time) * 0.25 * Math.exp(-time * 0.7);
+                    signal += Math.sin(2 * Math.PI * 392.00 * time) * 0.2 * Math.exp(-time * 0.9);
+                    signal += Math.sin(2 * Math.PI * 523.25 * time) * 0.15 * Math.exp(-time * 1.1);
+                    channelData[i] = signal * 0.1;
+                }
+            }
+            
+            return buffer;
+        }
+
+        async function initAudio() {
+            try {
+                musicBuffer = await createSyntheticMusic();
+            } catch (error) {
+                console.log('오디오 초기화 실패:', error);
+            }
+        }
         
         function initParallax() {
             parallaxElements = document.querySelectorAll('.parallax-element');
@@ -2533,30 +2598,46 @@
             }
         }
 
-        function togglePlay() {
-            const audio = document.getElementById('audioPlayer');
+        async function togglePlay() {
             const playButton = document.getElementById('playButton');
             const visualizer = document.getElementById('audioVisualizer');
             
+            if (audioContext.state === 'suspended') {
+                await audioContext.resume();
+            }
+            
             if (isPlaying) {
-                audio.pause();
+                if (audioSource) {
+                    audioSource.stop();
+                    audioSource = null;
+                }
                 playButton.textContent = '▶';
                 playButton.classList.remove('pulse-glow');
                 visualizer.classList.remove('playing');
                 visualizer.classList.add('paused');
                 isPlaying = false;
             } else {
-                const playPromise = audio.play();
-                if (playPromise !== undefined) {
-                    playPromise.then(() => {
+                try {
+                    if (!musicBuffer) {
+                        await initAudio();
+                    }
+                    
+                    if (musicBuffer) {
+                        audioSource = audioContext.createBufferSource();
+                        audioSource.buffer = musicBuffer;
+                        audioSource.loop = true;
+                        audioSource.connect(audioContext.destination);
+                        audioSource.start();
+                        
                         playButton.textContent = '⏸';
                         playButton.classList.add('pulse-glow');
                         visualizer.classList.remove('paused');
                         visualizer.classList.add('playing');
                         isPlaying = true;
-                    }).catch(() => {
-                        showToast('음악 재생을 위해 페이지를 터치해주세요 🎵');
-                    });
+                    }
+                } catch (error) {
+                    console.log('음악 재생 실패:', error);
+                    showToast('음악 재생을 위해 페이지를 터치해주세요 🎵');
                 }
             }
         }
@@ -2662,6 +2743,11 @@
                 return;
             }
 
+            if (!db) {
+                showToast('Firebase 연결에 문제가 있습니다. 새로고침 후 다시 시도해주세요! 🔄');
+                return;
+            }
+
             try {
                 await addDoc(collection(db, 'rsvp'), {
                     name: name,
@@ -2694,7 +2780,7 @@
             }
 
             if (!db) {
-                showToast('Firebase 연결에 문제가 있습니다. 페이지를 새로고침 해주세요! 🔄');
+                showToast('Firebase 연결에 문제가 있습니다. 새로고침 후 다시 시도해주세요! 🔄');
                 return;
             }
 
@@ -2721,11 +2807,10 @@
                 document.getElementById('guestbookPassword').value = '';
 
                 showToast('소중한 메시지가 등록되었습니다! 감사합니다 💕');
-                loadGuestbookMessages();
 
             } catch (error) {
                 console.error('방명록 저장 오류:', error);
-                showToast('메시지 등록 중 오류가 발생했습니다. Firebase 설정을 확인해주세요! 😅');
+                showToast('메시지 등록 중 오류가 발생했습니다. 다시 시도해주세요! 😅');
             }
         }
         
@@ -2738,14 +2823,30 @@
         }
 
         async function loadGuestbookMessages() {
+            const messagesContainer = document.getElementById('guestbookMessages');
+            
+            if (!db) {
+                messagesContainer.innerHTML = `
+                    <div class="error-message">
+                        ❌ Firebase 연결에 실패했습니다.<br>
+                        페이지를 새로고침 해주세요.
+                    </div>
+                `;
+                return;
+            }
+
             try {
+                messagesContainer.innerHTML = `
+                    <div class="loading-indicator">
+                        방명록을 불러오는 중입니다... 💕
+                    </div>
+                `;
+                
                 const q = query(
                     collection(db, 'guestbook'), 
                     orderBy('timestamp', 'desc')
                 );
                 const querySnapshot = await getDocs(q);
-                
-                const messagesContainer = document.getElementById('guestbookMessages');
                 
                 if (querySnapshot.empty) {
                     messagesContainer.innerHTML = `
@@ -2756,7 +2857,8 @@
                     return;
                 }
 
-                let messagesHTML = '';
+                messagesContainer.innerHTML = '';
+                
                 querySnapshot.forEach((doc) => {
                     const data = doc.data();
                     const date = data.timestamp ? data.timestamp.toDate() : new Date();
@@ -2767,48 +2869,109 @@
                         minute: '2-digit'
                     });
 
-                    const escapedMessage = data.message
-                        .replace(/&/g, '&amp;')
-                        .replace(/</g, '&lt;')
-                        .replace(/>/g, '&gt;')
-                        .replace(/"/g, '&quot;')
-                        .replace(/'/g, '&#39;');
+                    const messageItem = document.createElement('div');
+                    messageItem.className = 'message-item';
+                    messageItem.setAttribute('data-id', doc.id);
+
+                    const messageHeader = document.createElement('div');
+                    messageHeader.className = 'message-header';
+
+                    const messageName = document.createElement('span');
+                    messageName.className = 'message-name';
+                    messageName.textContent = data.name;
+
+                    const messageDate = document.createElement('span');
+                    messageDate.className = 'message-date';
+                    messageDate.textContent = formattedDate;
+
+                    messageHeader.appendChild(messageName);
+                    messageHeader.appendChild(messageDate);
+
+                    const messageText = document.createElement('div');
+                    messageText.className = 'message-text';
+                    messageText.style.whiteSpace = 'pre-wrap';
+                    messageText.style.wordWrap = 'break-word';
+                    messageText.style.wordBreak = 'break-word';
+                    messageText.style.overflowWrap = 'break-word';
+                    messageText.textContent = data.message;
 
                     const hasActions = data.hasPassword || isAdminMode;
-                    const actionButtons = hasActions ? `
-                        <div class="message-actions">
-                            ${data.hasPassword ? `<button class="action-btn edit" onclick="editMessage('${doc.id}', \`${data.message.replace(/`/g, '\\`')}\`, true)" title="수정">✏️</button>` : ''}
-                            <button class="action-btn delete" onclick="deleteMessage('${doc.id}', ${data.hasPassword})" title="삭제">🗑️</button>
-                        </div>
-                    ` : '';
+                    if (hasActions) {
+                        const messageActions = document.createElement('div');
+                        messageActions.className = 'message-actions';
 
-                    messagesHTML += `
-                        <div class="message-item" data-id="${doc.id}">
-                            ${actionButtons}
-                            <div class="message-header">
-                                <span class="message-name">${data.name}</span>
-                                <span class="message-date">${formattedDate}</span>
-                            </div>
-                            <div class="message-text">${escapedMessage}</div>
-                            <div class="edit-form" id="edit-${doc.id}">
-                                <textarea class="edit-input" placeholder="수정할 메시지를 입력하세요">${data.message}</textarea>
-                                <div class="edit-actions">
-                                    <button class="edit-btn save" onclick="saveEdit('${doc.id}')">저장</button>
-                                    <button class="edit-btn cancel" onclick="cancelEdit('${doc.id}')">취소</button>
-                                </div>
-                            </div>
-                        </div>
+                        if (data.hasPassword) {
+                            const editBtn = document.createElement('button');
+                            editBtn.className = 'action-btn edit';
+                            editBtn.title = '수정';
+                            editBtn.textContent = '✏️';
+                            editBtn.onclick = () => editMessage(doc.id, data.message, true);
+                            messageActions.appendChild(editBtn);
+                        }
+
+                        const deleteBtn = document.createElement('button');
+                        deleteBtn.className = 'action-btn delete';
+                        deleteBtn.title = '삭제';
+                        deleteBtn.textContent = '🗑️';
+                        deleteBtn.onclick = () => deleteMessage(doc.id, data.hasPassword);
+                        messageActions.appendChild(deleteBtn);
+
+                        messageItem.appendChild(messageActions);
+                    }
+
+                    const editForm = document.createElement('div');
+                    editForm.className = 'edit-form';
+                    editForm.id = `edit-${doc.id}`;
+
+                    const editInput = document.createElement('textarea');
+                    editInput.className = 'edit-input';
+                    editInput.placeholder = '수정할 메시지를 입력하세요';
+                    editInput.value = data.message;
+                    editInput.style.whiteSpace = 'pre-wrap';
+                    editInput.style.fontFamily = 'inherit';
+
+                    const editActions = document.createElement('div');
+                    editActions.className = 'edit-actions';
+
+                    const saveBtn = document.createElement('button');
+                    saveBtn.className = 'edit-btn save';
+                    saveBtn.textContent = '저장';
+                    saveBtn.onclick = () => saveEdit(doc.id);
+
+                    const cancelBtn = document.createElement('button');
+                    cancelBtn.className = 'edit-btn cancel';
+                    cancelBtn.textContent = '취소';
+                    cancelBtn.onclick = () => cancelEdit(doc.id);
+
+                    editActions.appendChild(saveBtn);
+                    editActions.appendChild(cancelBtn);
+                    editForm.appendChild(editInput);
+                    editForm.appendChild(editActions);
+
+                    const heartIcon = document.createElement('div');
+                    heartIcon.style.cssText = `
+                        position: absolute;
+                        top: 12px;
+                        right: 15px;
+                        font-size: 0.8rem;
+                        opacity: 0.3;
                     `;
+                    heartIcon.textContent = '💕';
+
+                    messageItem.appendChild(heartIcon);
+                    messageItem.appendChild(messageHeader);
+                    messageItem.appendChild(messageText);
+                    messageItem.appendChild(editForm);
+
+                    messagesContainer.appendChild(messageItem);
                 });
 
-                messagesContainer.innerHTML = messagesHTML;
-                
             } catch (error) {
                 console.error('방명록 로드 오류:', error);
-                document.getElementById('guestbookMessages').innerHTML = `
-                    <div style="text-align: center; color: #999; padding: 20px; font-size: 0.95rem;">
-                        메시지를 불러오는 중 오류가 발생했습니다.<br>
-                        Firebase 설정을 확인해주세요.
+                messagesContainer.innerHTML = `
+                    <div class="error-message">
+                        ❌ 메시지를 불러오는 중 오류가 발생했습니다.<br>
+                        Firebase 연결을 확인해주세요.
                     </div>
                 `;
             }
@@ -2824,18 +2987,16 @@
         }
 
         function deleteMessage(messageId, hasPassword) {
+            currentAction = 'delete';
+            currentMessageId = messageId;
+            currentMessageElement = document.querySelector(`[data-id="${messageId}"]`);
+            
             if (hasPassword) {
-                currentAction = 'delete';
-                currentMessageId = messageId;
-                currentMessageElement = document.querySelector(`[data-id="${messageId}"]`);
                 showPasswordModal('메시지를 삭제하려면 비밀번호를 입력하세요');
             } else if (isAdminMode) {
-                currentAction = 'delete';
-                currentMessageId = messageId;
-                currentMessageElement = document.querySelector(`[data-id="${messageId}"]`);
                 showPasswordModal('관리자 권한으로 삭제하려면 마스터키를 입력하세요');
             } else {
-                showToast('삭제 권한이 없습니다! 🔒');
+                showPasswordModal('비밀번호가 없는 메시지입니다. 관리자 권한이 필요합니다. 마스터키를 입력하세요');
             }
         }
 
@@ -2872,6 +3033,7 @@
                 
                 if (docSnap.exists()) {
                     const data = docSnap.data();
+                    
                     if (data.hasPassword) {
                         const hashedInput = await hashPassword(password);
                         if (hashedInput === data.password) {
@@ -2881,7 +3043,7 @@
                             showToast('비밀번호가 틀렸습니다! 😅');
                         }
                     } else {
-                        showToast('이 메시지는 비밀번호가 설정되지 않았습니다! 🔒');
+                        showToast('마스터키가 틀렸습니다! 😅');
                     }
                 } else {
                     showToast('메시지를 찾을 수 없습니다! 😅');
@@ -3033,14 +3195,32 @@
             updateSlidePosition();
             updateProgressBar();
             initParallax();
+            initAudio();
             
             setTimeout(() => {
                 if (db) {
-                    console.log('Firebase 연결 성공');
+                    console.log('Firebase 연결 성공, 방명록 로드 시작');
                     loadGuestbookMessages();
+                    
+                    try {
+                        onSnapshot(collection(db, 'guestbook'), (snapshot) => {
+                            console.log('방명록 실시간 업데이트:', snapshot.size, '개 메시지');
+                            loadGuestbookMessages();
+                        });
+                    } catch (error) {
+                        console.error('실시간 업데이트 설정 실패:', error);
+                    }
                 } else {
                     console.error('Firebase 연결 실패');
-                    showToast('Firebase 연결에 실패했습니다. 페이지를 새로고침 해주세요! 🔄');
+                    const messagesContainer = document.getElementById('guestbookMessages');
+                    if (messagesContainer) {
+                        messagesContainer.innerHTML = `
+                            <div class="error-message">
+                                ❌ Firebase 연결에 실패했습니다.<br>
+                                페이지를 새로고침 해주세요.
+                            </div>
+                        `;
+                    }
                 }
             }, 1000);
             
@@ -3051,15 +3231,6 @@
             const mainTitle = document.querySelector('.main-title');
             if (mainTitle) {
                 mainTitle.classList.add('typewriter');
-            }
-            
-            try {
-                onSnapshot(collection(db, 'guestbook'), (snapshot) => {
-                    console.log('방명록 실시간 업데이트:', snapshot.size, '개 메시지');
-                    loadGuestbookMessages();
-                });
-            } catch (error) {
-                console.error('실시간 업데이트 설정 실패:', error);
             }
             
             let clickCount = 0;
@@ -3083,9 +3254,8 @@
         });
 
         document.addEventListener('click', function(e) {
-            const audio = document.getElementById('audioPlayer');
-            if (audio.paused && !isPlaying) {
-                audio.play().catch(() => {});
+            if (audioContext.state === 'suspended') {
+                audioContext.resume();
             }
             
             createFloatingHeart(e.clientX, e.clientY);
