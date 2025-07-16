@@ -1109,9 +1109,9 @@
             </div>
             <input type="range" class="volume-control" id="volumeControl" min="0" max="100" value="70" onclick="event.stopPropagation()" onchange="changeVolume(this.value)">
         </div>
-        <audio id="backgroundAudio" loop preload="auto" crossorigin="anonymous">
+        <audio id="backgroundAudio" loop preload="auto">
             <source src="https://www.soundjay.com/misc/sounds/bell-ringing-05.wav" type="audio/wav">
-            <source src="https://actions.google.com/sounds/v1/ambiences/medium_rain_on_window.ogg" type="audio/ogg">
+            <source src="DAY1.mp3" type="audio/mpeg">
         </audio>
     </div>
 
@@ -1211,6 +1211,7 @@
                 }
 
                 audio.volume = 0.7;
+                audio.crossOrigin = "anonymous";
 
                 audio.addEventListener('loadstart', () => {
                     console.log('Audio loading started');
@@ -1219,6 +1220,7 @@
                 audio.addEventListener('loadeddata', () => {
                     console.log('Audio data loaded');
                     isAudioInitialized = true;
+                    showToast('음악이 준비되었습니다! 🎵');
                 });
 
                 audio.addEventListener('canplay', () => {
@@ -1237,10 +1239,26 @@
                     playPauseBtn.textContent = '▶';
                 });
 
+                audio.addEventListener('ended', () => {
+                    console.log('Audio ended');
+                    isAudioPlaying = false;
+                    playPauseBtn.textContent = '▶';
+                });
+
                 audio.addEventListener('error', (e) => {
                     console.error('Audio error:', e);
                     console.error('Audio error details:', audio.error);
-                    showToast('음악 파일을 불러올 수 없습니다 😅');
+                    showToast('음악 파일을 불러올 수 없습니다. 다른 음악을 시도합니다 😅');
+                    
+                    setTimeout(() => {
+                        const testAudio = new Audio('https://www.soundjay.com/misc/sounds/bell-ringing-05.wav');
+                        testAudio.volume = 0.5;
+                        testAudio.play().then(() => {
+                            console.log('Test audio played successfully');
+                        }).catch((error) => {
+                            console.error('Test audio failed:', error);
+                        });
+                    }, 1000);
                 });
 
                 audio.addEventListener('timeupdate', () => {
@@ -1250,12 +1268,31 @@
                     }
                 });
 
+                audio.addEventListener('stalled', () => {
+                    console.log('Audio stalled');
+                    showToast('음악 로딩 중... 잠시만 기다려주세요 ⏳');
+                });
+
+                audio.addEventListener('suspend', () => {
+                    console.log('Audio suspended');
+                });
+
+                audio.addEventListener('abort', () => {
+                    console.log('Audio aborted');
+                });
+
+                audio.addEventListener('emptied', () => {
+                    console.log('Audio emptied');
+                });
+
                 document.addEventListener('click', (e) => {
                     const musicPlayer = document.getElementById('musicPlayer');
                     if (isMusicPlayerExpanded && !musicPlayer.contains(e.target)) {
                         toggleMusicPlayer();
                     }
                 });
+
+                console.log('Audio player initialized successfully');
 
             } catch (error) {
                 console.error('Audio initialization error:', error);
@@ -1274,7 +1311,10 @@
 
             if (isAudioPlaying) {
                 audio.pause();
+                showToast('음악이 일시정지되었습니다 ⏸️');
             } else {
+                audio.load();
+                
                 const playPromise = audio.play();
                 
                 if (playPromise !== undefined) {
@@ -1282,8 +1322,17 @@
                         console.log('Audio playback started successfully');
                         playPauseBtn.textContent = '⏸';
                         isAudioPlaying = true;
+                        showToast('음악이 재생됩니다 🎵');
                     }).catch((error) => {
                         console.error('Playback failed:', error);
+                        
+                        if (error.name === 'NotAllowedError') {
+                            showToast('브라우저에서 자동 재생이 차단되었습니다. 버튼을 다시 눌러주세요 🔄');
+                        } else if (error.name === 'NotSupportedError') {
+                            showToast('이 음악 형식은 지원되지 않습니다 😅');
+                        } else {
+                            showToast('음악 재생 중 오류가 발생했습니다 😅');
+                        }
                         
                         if (!audioContext) {
                             try {
@@ -1291,17 +1340,24 @@
                                 if (audioContext.state === 'suspended') {
                                     audioContext.resume().then(() => {
                                         console.log('AudioContext resumed');
-                                        audio.play();
+                                        setTimeout(() => {
+                                            audio.play().then(() => {
+                                                showToast('음악이 재생됩니다 🎵');
+                                            }).catch(e => {
+                                                console.error('Retry failed:', e);
+                                                showToast('음악 재생에 실패했습니다. 새로고침 후 다시 시도해주세요 🔄');
+                                            });
+                                        }, 500);
                                     });
                                 }
                             } catch (contextError) {
                                 console.error('AudioContext creation failed:', contextError);
-                                showToast('음악 재생을 위해 화면을 터치해주세요 🎵');
+                                showToast('오디오 컨텍스트 생성에 실패했습니다 😅');
                             }
-                        } else {
-                            showToast('음악 재생을 위해 화면을 터치해주세요 🎵');
                         }
                     });
+                } else {
+                    showToast('이 브라우저에서는 음악 재생이 지원되지 않습니다 😅');
                 }
             }
         }
